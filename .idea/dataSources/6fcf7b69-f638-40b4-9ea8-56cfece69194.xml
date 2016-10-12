@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Oracle - @10.3.93.150">
+  <database-model serializer="dbm" rdbms="ORACLE" format-version="2.6">
+    <schema id="1" name="PUYUNHE">
+      <object-id>94</object-id>
+      <created-timestamp>2016-09-05.13:49:59</created-timestamp>
+      <modified-timestamp>2016-09-20.10:30:22</modified-timestamp>
+      <visible>1</visible>
+      <introspection-timestamp>2016-09-28.12:33:13</introspection-timestamp>
+    </schema>
+    <schema id="2" name="PUBLIC">
+      <object-id>1</object-id>
+    </schema>
+    <schema id="3" name="SYS"/>
+    <schema id="4" name="SYSTEM">
+      <object-id>5</object-id>
+    </schema>
+    <schema id="5" name="OUTLN">
+      <object-id>9</object-id>
+    </schema>
+    <schema id="6" name="DIP">
+      <object-id>14</object-id>
+    </schema>
+    <schema id="7" name="ORACLE_OCM">
+      <object-id>21</object-id>
+    </schema>
+    <schema id="8" name="DBSNMP">
+      <object-id>30</object-id>
+    </schema>
+    <schema id="9" name="APPQOSSYS">
+      <object-id>31</object-id>
+    </schema>
+    <schema id="10" name="WMSYS">
+      <object-id>32</object-id>
+    </schema>
+    <schema id="11" name="EXFSYS">
+      <object-id>42</object-id>
+    </schema>
+    <schema id="12" name="CTXSYS">
+      <object-id>43</object-id>
+    </schema>
+    <schema id="13" name="XDB">
+      <object-id>45</object-id>
+    </schema>
+    <schema id="14" name="ANONYMOUS">
+      <object-id>46</object-id>
+    </schema>
+    <schema id="15" name="ORDSYS">
+      <object-id>53</object-id>
+    </schema>
+    <schema id="16" name="ORDDATA">
+      <object-id>54</object-id>
+    </schema>
+    <schema id="17" name="ORDPLUGINS">
+      <object-id>55</object-id>
+    </schema>
+    <schema id="18" name="SI_INFORMTN_SCHEMA">
+      <object-id>56</object-id>
+    </schema>
+    <schema id="19" name="MDSYS">
+      <object-id>57</object-id>
+    </schema>
+    <schema id="20" name="OLAPSYS">
+      <object-id>61</object-id>
+    </schema>
+    <schema id="21" name="MDDATA">
+      <object-id>65</object-id>
+    </schema>
+    <schema id="22" name="SPATIAL_WFS_ADMIN_USR">
+      <object-id>67</object-id>
+    </schema>
+    <schema id="23" name="SPATIAL_CSW_ADMIN_USR">
+      <object-id>70</object-id>
+    </schema>
+    <schema id="24" name="SYSMAN">
+      <object-id>72</object-id>
+    </schema>
+    <schema id="25" name="MGMT_VIEW">
+      <object-id>74</object-id>
+    </schema>
+    <schema id="26" name="FLOWS_FILES">
+      <object-id>75</object-id>
+    </schema>
+    <schema id="27" name="APEX_PUBLIC_USER">
+      <object-id>76</object-id>
+    </schema>
+    <schema id="28" name="APEX_030200">
+      <object-id>78</object-id>
+    </schema>
+    <schema id="29" name="OWBSYS">
+      <object-id>79</object-id>
+    </schema>
+    <schema id="30" name="OWBSYS_AUDIT">
+      <object-id>83</object-id>
+    </schema>
+    <schema id="31" name="SCOTT">
+      <object-id>84</object-id>
+    </schema>
+    <schema id="32" name="HR">
+      <object-id>85</object-id>
+    </schema>
+    <schema id="33" name="OE">
+      <object-id>86</object-id>
+    </schema>
+    <schema id="34" name="IX">
+      <object-id>87</object-id>
+    </schema>
+    <schema id="35" name="SH">
+      <object-id>88</object-id>
+    </schema>
+    <schema id="36" name="PM">
+      <object-id>89</object-id>
+    </schema>
+    <schema id="37" name="BI">
+      <object-id>90</object-id>
+    </schema>
+    <schema id="38" name="IPLAT_LOGISTICS">
+      <object-id>91</object-id>
+    </schema>
+    <schema id="39" name="LOGISTICS">
+      <object-id>92</object-id>
+    </schema>
+    <schema id="40" name="IPLAT">
+      <object-id>93</object-id>
+    </schema>
+    <schema id="41" name="SSH">
+      <object-id>95</object-id>
+    </schema>
+    <schema id="42" name="XS$NULL">
+      <object-id>2147483638</object-id>
+    </schema>
+    <sequence id="43" parent="1" name="HIBERNATE_SEQUENCE">
+      <object-id>75588</object-id>
+      <created-timestamp>2016-09-05.13:49:59</created-timestamp>
+      <modified-timestamp>2016-09-05.13:49:59</modified-timestamp>
+      <min-value>1</min-value>
+      <increment-by>1</increment-by>
+      <next-value>1</next-value>
+    </sequence>
+    <table id="44" parent="1" name="ACCOUNTTABLE">
+      <object-id>75719</object-id>
+      <comment>平台账户信息表</comment>
+      <created-timestamp>2016-09-19.10:37:22</created-timestamp>
+      <modified-timestamp>2016-09-20.10:30:22</modified-timestamp>
+      <organization>HEAP</organization>
+    </table>
+    <table id="45" parent="1" name="JOBTABLE">
+      <object-id>75718</object-id>
+      <comment>岗位信息表</comment>
+      <created-timestamp>2016-09-14.12:05:28</created-timestamp>
+      <modified-timestamp>2016-09-19.11:15:18</modified-timestamp>
+      <organization>HEAP</organization>
+    </table>
+    <table id="46" parent="1" name="ORGTABLE">
+      <object-id>75717</object-id>
+      <comment>组织机构信息表</comment>
+      <created-timestamp>2016-09-14.12:03:38</created-timestamp>
+      <modified-timestamp>2016-09-19.11:14:29</modified-timestamp>
+      <organization>HEAP</organization>
+    </table>
+    <table id="47" parent="1" name="USERTABLE">
+      <object-id>75720</object-id>
+      <comment>用户基本信息表</comment>
+      <created-timestamp>2016-09-19.10:54:53</created-timestamp>
+      <modified-timestamp>2016-09-19.11:18:14</modified-timestamp>
+      <organization>HEAP</organization>
+    </table>
+    <column id="48" parent="44" name="USERID">
+      <comment>用户账户（工号）</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="49" parent="44" name="DATAOPTIME">
+      <comment>数据更新时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="50" parent="44" name="DATAFLAG">
+      <comment>数据标记</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="51" parent="44" name="BSBAK1">
+      <comment>系统预留1</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="52" parent="44" name="BSBAK2">
+      <comment>系统预留2</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="53" parent="45" name="RESPONSETIME">
+      <comment>响应时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="54" parent="45" name="JOBLEVEL">
+      <comment>岗位级别</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="55" parent="45" name="JOBCODE">
+      <comment>岗位编码</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="56" parent="45" name="JOBNAME">
+      <comment>岗位全称</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="57" parent="45" name="JOBSHORTNAME">
+      <comment>岗位简称</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="58" parent="45" name="UNIORGCODE">
+      <comment>统一部门编码</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="59" parent="45" name="ORGDEPT">
+      <comment>旧所属部门</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="60" parent="45" name="ORGCODE">
+      <comment>旧所属公司</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="61" parent="45" name="DUTYCODE">
+      <comment>职务</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="62" parent="45" name="SUPORIOR">
+      <comment>直接上级</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="63" parent="45" name="STATUS">
+      <comment>状态</comment>
+      <data-type>NUMBER(*)|0</data-type>
+    </column>
+    <column id="64" parent="45" name="STATUSDATE">
+      <comment>状态时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="65" parent="45" name="REMARK1">
+      <comment>备注1</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="66" parent="45" name="REMARK2">
+      <comment>备注2</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="67" parent="45" name="DATAOPTIME">
+      <comment>数据操作时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="68" parent="45" name="DATAFLAG">
+      <comment>数据标记</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="69" parent="45" name="BSBAK1">
+      <comment>系统预留1</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="70" parent="45" name="BSBAK2">
+      <comment>系统预留2</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="71" parent="46" name="RESPONSETIME">
+      <comment>响应时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="72" parent="46" name="ORGLEVEL">
+      <comment>机构级别</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="73" parent="46" name="ORGCODE">
+      <comment>机构编码</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="74" parent="46" name="ORGNAME">
+      <comment>机构名称</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="75" parent="46" name="PARENTORGCODE">
+      <comment>上级机构编码</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="76" parent="46" name="OLDORGCODE">
+      <comment>旧机构编码</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="77" parent="46" name="USESTATUS">
+      <comment>使用状态</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="78" parent="46" name="STATUSDATE">
+      <comment>状态时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="79" parent="46" name="REMARK1">
+      <comment>备注1</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="80" parent="46" name="REMARK2">
+      <comment>备注2</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="81" parent="46" name="DATAOPTIME">
+      <comment>数据操作时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="82" parent="46" name="DATAFLAG">
+      <comment>数据标记</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="83" parent="46" name="BSBAK1">
+      <comment>系统预留1</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="84" parent="46" name="BSBAK2">
+      <comment>系统预留2</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="85" parent="47" name="ID">
+      <comment>身份证号</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="86" parent="47" name="RESPONSETIME">
+      <comment>响应时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="87" parent="47" name="PKPSNBASDOC">
+      <comment>用户信息主键</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="88" parent="47" name="PSNID">
+      <comment>用户编号</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="89" parent="47" name="PSNNAME">
+      <comment>姓名</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="90" parent="47" name="SEX">
+      <comment>性别</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="91" parent="47" name="ORGCODE">
+      <comment>组织机构编码</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="92" parent="47" name="OLDORGCODE">
+      <comment>旧组织机构编码</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="93" parent="47" name="JOBCODE">
+      <comment>岗位编码</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="94" parent="47" name="PSNCLASS">
+      <comment>人员类别</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="95" parent="47" name="PSNCLASSNAME">
+      <comment>人员类别名称</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="96" parent="47" name="PSNTYPE">
+      <comment>人员分类</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="97" parent="47" name="INDUTYDATE">
+      <comment>到职日期</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="98" parent="47" name="OUTDUTYDATE">
+      <comment>离职日期</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="99" parent="47" name="PKCORP">
+      <comment>公司主键</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="100" parent="47" name="PKDEPTDOC">
+      <comment>所在部门</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="101" parent="47" name="DR">
+      <comment>删除标志</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="102" parent="47" name="TS">
+      <comment>时间戳</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="103" parent="47" name="MAIL">
+      <comment>邮件</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="104" parent="47" name="PHONE">
+      <comment>手机</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="105" parent="47" name="BIRTHDAY">
+      <comment>生日</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="106" parent="47" name="FILEPATH">
+      <comment>照片路径</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="107" parent="47" name="FILEURL">
+      <comment>照片发布地址</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="108" parent="47" name="REMARK1">
+      <comment>备注1</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="109" parent="47" name="REMARK2">
+      <comment>备注2</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="110" parent="47" name="DATAOPTIME">
+      <comment>数据操作时间</comment>
+      <data-type>DATE|0</data-type>
+    </column>
+    <column id="111" parent="47" name="DATAFLAG">
+      <comment>数据标记</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="112" parent="47" name="BSBAK1">
+      <comment>系统预留1</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+    <column id="113" parent="47" name="BSBAK2">
+      <comment>系统预留2</comment>
+      <data-type>VARCHAR2(1000)|0</data-type>
+    </column>
+  </database-model>
+</dataSource>
