@@ -7,7 +7,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 import java.sql.*;
 import java.util.List;
-import oracle.jdbc.driver.OracleDriver;
+
 
 /**
  * Created by YuNan on 2016/9/8.

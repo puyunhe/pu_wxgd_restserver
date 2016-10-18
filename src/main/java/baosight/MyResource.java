@@ -6,6 +6,8 @@ import org.codehaus.jettison.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 
@@ -16,7 +18,7 @@ import java.util.*;
 public class MyResource {
 
 
-    /**
+    /**用于执行查询的sql语句的接口
      * Method handling HTTP GET requests. The returned object will be sent
      * to the client as "text/plain" media type.
      *
@@ -43,9 +45,14 @@ public class MyResource {
                 int page=Integer.parseInt(tmpdata.getString("page"));
                 sql=String.format(utils.getpropertieval("comm_split","/config/sqls.properties"),sql,String.valueOf(pagesize*page),String.valueOf((page-1)*pagesize+1));
             }
+            //获取key
+            String DESKey=utils.getDESKey(utils.getpropertieval("GUID","/config/dbconfig.properties"));
+            //获取用户名和密码
+            String user =utils.decryptBasedDes(utils.getpropertieval("s_dbuser","/config/dbconfig.properties"),DESKey);
+            String password =utils.decryptBasedDes(utils.getpropertieval("s_dbpassword","/config/dbconfig.properties"),DESKey);
+            String dbhost =utils.decryptBasedDes(utils.getpropertieval("s_dbname","/config/dbconfig.properties"),DESKey);
 
-
-            JSONObject jresult = dbhelpser.Excutesql(utils.getpropertieval("s_dbname", "/config/dbconfig.properties"), utils.getpropertieval("s_dbuser", "/config/dbconfig.properties"), utils.getpropertieval("s_dbpassword", "/config/dbconfig.properties"), null, null, sql);
+            JSONObject jresult = dbhelpser.Excutesql(dbhost, user, password, null, null, sql);
             result = jresult.toString();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -75,7 +82,7 @@ public class MyResource {
             if (jsonObject.has("conditions")) {
                 StringBuilder sb = new StringBuilder();
                 JSONArray conditions = jsonObject.getJSONArray("conditions");//传过来的条件
-                List<JSONObject> list = JsonToList.jsonarray2list(conditions);
+                List<JSONObject> list = utils.jsonarray2list(conditions);
                 for (int i = 0; i < list.size(); i++) {
                     JSONObject condition = list.get(i);
                     String colname = condition.getString("colname");
