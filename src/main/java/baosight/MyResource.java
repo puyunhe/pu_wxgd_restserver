@@ -46,11 +46,11 @@ public class MyResource {
                 sql=String.format(utils.getpropertieval("comm_split","/config/sqls.properties"),sql,String.valueOf(pagesize*page),String.valueOf((page-1)*pagesize+1));
             }
             //获取key
-            String DESKey=utils.getDESKey(utils.getpropertieval("GUID","/config/dbconfig.properties"));
+           // String DESKey=utils.getDESKey(utils.getpropertieval("GUID","/config/dbconfig.properties"));
             //获取用户名和密码
-            String user =utils.decryptBasedDes(utils.getpropertieval("s_dbuser","/config/dbconfig.properties"),DESKey);
-            String password =utils.decryptBasedDes(utils.getpropertieval("s_dbpassword","/config/dbconfig.properties"),DESKey);
-            String dbhost =utils.decryptBasedDes(utils.getpropertieval("s_dbname","/config/dbconfig.properties"),DESKey);
+            String user =utils.decryptBasedDes(utils.getpropertieval("s_dbuser","/config/dbconfig.properties"));
+            String password =utils.decryptBasedDes(utils.getpropertieval("s_dbpassword","/config/dbconfig.properties"));
+            String dbhost =utils.decryptBasedDes(utils.getpropertieval("s_dbname","/config/dbconfig.properties"));
 
             JSONObject jresult = dbhelpser.Excutesql(dbhost, user, password, null, null, sql);
             result = jresult.toString();
@@ -119,5 +119,39 @@ public class MyResource {
             e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * DES加解密
+     * 加密只要给加密的内容，如："src":"content"
+     * 解密的条件多给一个decrypt。如："src":"","decrypt":""
+     * @param jsonString
+     * @return
+     */
+    @Path("encryptBasedDES")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public String encryptBasedDes(String jsonString){
+        String result="";
+        JSONObject jsonResult=new JSONObject();
+        try {
+            jsonResult.accumulate("secretKey",utils.getDESKey(utils.getpropertieval("GUID","/config/dbconfig.properties")));
+
+            JSONObject jsonObject=new JSONObject(jsonString);
+            String src=jsonObject.getString("src");
+            if(jsonObject.has("decrypt")){
+                result=utils.decryptBasedDes(src);
+                jsonResult.accumulate("result",result);
+                jsonResult.accumulate("source",src);
+            }else {
+                result=utils.encryptBasedDes(src);
+                jsonResult.accumulate("result",result);
+                jsonResult.accumulate("source",src);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonResult.toString();
     }
 }

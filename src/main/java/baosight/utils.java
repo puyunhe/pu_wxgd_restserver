@@ -63,13 +63,9 @@ public class utils {
 
     }
 
-    /**
-     * DES加密
-     * @param data
-     * @param DES_KEY 长度不少于8的倍数
-     * @return
-     */
-    public static String encryptBasedDes(String data,String DES_KEY) {
+
+    public static String encryptBasedDes(String data) {
+        String DES_KEY=utils.getDESKey(utils.getpropertieval("GUID","/config/dbconfig.properties"));
         String encryptedData = null;
         try {
             // DES算法要求有一个可信任的随机数源
@@ -90,13 +86,9 @@ public class utils {
         return encryptedData;
     }
 
-    /**
-     * DES解密
-     * @param cryptData
-     * @param DES_KEY
-     * @return
-     */
-    public static String decryptBasedDes(String cryptData,String DES_KEY) {
+
+    public static String decryptBasedDes(String cryptData) {
+        String DES_KEY=utils.getDESKey(utils.getpropertieval("GUID","/config/dbconfig.properties"));
         String decryptedData = null;
         try {
             // DES算法要求有一个可信任的随机数源
