@@ -6,8 +6,6 @@ import org.codehaus.jettison.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 
@@ -54,9 +52,14 @@ public class MyResource {
 
             JSONObject jresult = dbhelpser.Excutesql(dbhost, user, password, null, null, sql);
             result = jresult.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-
+        } catch (Exception e) {
+            JSONObject tmp = new JSONObject();
+            try {
+                tmp.accumulate("error",e.getMessage());
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+            result = tmp.toString();
         }
         return result;
     }
@@ -116,8 +119,16 @@ public class MyResource {
             //JSONObject jobject =dbhelpser.Excutesql(utils.getpropertieval("s_dbname", "/config/dbconfig.properties"), utils.getpropertieval("s_dbuser", "/config/dbconfig.properties"), utils.getpropertieval("s_dbpassword", "/config/dbconfig.properties"), null, null, sqltodo);
             result=jobj.toString();
         } catch (Exception e) {
-            e.printStackTrace();
+
+            JSONObject tmp = new JSONObject();
+            try {
+                tmp.accumulate("error",e.getMessage());
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
+            result = tmp.toString();
         }
+
         return result;
     }
 
