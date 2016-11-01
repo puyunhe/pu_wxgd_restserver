@@ -5,6 +5,8 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 import java.sql.*;
 import java.util.List;
 
@@ -105,11 +107,26 @@ public class dbhelpser {
 			try {
 				result.accumulate("error", e.getMessage());//返回异常信息
 				result.accumulate("data", null);
+
+
 			} catch (JSONException e1) {
 				e1.printStackTrace();
 			}
 		}
 
+		JSONObject logobj = new JSONObject();
+		try {
+			logobj.accumulate("cusip","");
+			logobj.accumulate("method","db.Excutesql");
+			logobj.accumulate("methodparam",sql+"-"+sqls+"-"+datasql);
+			logobj.accumulate("result", result.has("error") ? "失败" : "成功");
+			logobj.accumulate("error",result.has("error")?result.getString("error"):"");
+			logobj.accumulate("errtype","db.Excutesql");
+			//创建日志到数据库
+			utils.createLog(logobj.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 	

@@ -4,7 +4,9 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.*;
 
@@ -32,9 +34,9 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public String commsearch(String sourcedata) {
+    public String commsearch(String sourcedata,@Context HttpServletRequest request)  {
         String result = "";
-
+        JSONObject errormsg = new JSONObject();
         try {
             JSONObject tmpdata = new JSONObject(sourcedata);
             String sql = tmpdata.getString("sql");
@@ -53,14 +55,25 @@ public class MyResource {
             JSONObject jresult = dbhelpser.Excutesql(dbhost, user, password, null, null, sql);
             result = jresult.toString();
         } catch (Exception e) {
-            JSONObject tmp = new JSONObject();
             try {
-                tmp.accumulate("error",e.getMessage());
+                errormsg.accumulate("error",e.getMessage());
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            result = tmp.toString();
+            //result = errormsg.toString();
         }
+        try {
+            JSONObject logobj = new JSONObject();
+            logobj.accumulate("cusip",utils.getIpAddr(request));
+            logobj.accumulate("method","MyResource.commsearch");
+            logobj.accumulate("methodparam",sourcedata);
+            logobj.accumulate("result", (errormsg != null) ? "成功" : "失败");
+            logobj.accumulate("error",errormsg.has("error")?errormsg.getString("error"):"");
+            logobj.accumulate("errtype","MyResource.commsearch");
+            utils.createLog(logobj.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+       }
         return result;
     }
 
@@ -71,11 +84,12 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public String jsonSearch(String jsonString) {
+    public String jsonSearch(String jsonString,@Context HttpServletRequest request)  {
         String result="";
+
+        JSONObject errormsg = new JSONObject();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
-
 
             String basictype = jsonObject.getString("basictype");//user，org,job
             String basesql = utils.getpropertieval(String.format("base_%s_sql", basictype), "/config/sqls.properties");
@@ -115,18 +129,31 @@ public class MyResource {
                 tmp.accumulate("page",jsonObject.getString("page"));
             }
 
-            JSONObject jobj =  new JSONObject(commsearch(tmp.toString()));
+            JSONObject jobj =  new JSONObject(commsearch(tmp.toString(),request));
             //JSONObject jobject =dbhelpser.Excutesql(utils.getpropertieval("s_dbname", "/config/dbconfig.properties"), utils.getpropertieval("s_dbuser", "/config/dbconfig.properties"), utils.getpropertieval("s_dbpassword", "/config/dbconfig.properties"), null, null, sqltodo);
             result=jobj.toString();
-        } catch (Exception e) {
 
-            JSONObject tmp = new JSONObject();
+        } catch (Exception e) {
             try {
-                tmp.accumulate("error",e.getMessage());
+                errormsg.accumulate("error",e.getMessage());
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
-            result = tmp.toString();
+            //result = errormsg.toString();
+        }
+
+        try {
+            JSONObject logobj = new JSONObject();
+            logobj.accumulate("cusip",utils.getIpAddr(request));
+            logobj.accumulate("method","MyResource.jsonSearch");
+            logobj.accumulate("methodparam",jsonString);
+            logobj.accumulate("result", (errormsg != null) ? "成功" : "失败");
+            logobj.accumulate("error",errormsg.has("error")?errormsg.getString("error"):"");
+            logobj.accumulate("errtype","MyResource.jsonSearch");
+            //创建日志到数据库
+            utils.createLog(logobj.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         return result;
@@ -166,4 +193,15 @@ public class MyResource {
         }
         return jsonResult.toString();
     }
+
+    @Path("test")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    public String test(String jsonString ,@Context HttpServletRequest request){
+        String result=utils.createLog(jsonString);
+        //System.out.println(utils.getIpAddr(request));
+        return result;
+    }
+
 }

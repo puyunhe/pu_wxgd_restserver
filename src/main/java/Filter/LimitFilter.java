@@ -10,17 +10,13 @@ import java.io.IOException;
  */
 
 public class LimitFilter implements javax.servlet.Filter {
-    //private FilterConfig config;
+
     public void destroy() {
     }
 
     public void doFilter(javax.servlet.ServletRequest request, javax.servlet.ServletResponse response, javax.servlet.FilterChain chain) throws javax.servlet.ServletException, IOException {
         HttpServletResponse httpServletResponse = (HttpServletResponse)response;
-       /* String charset = config.getInitParameter("charset");
-        if(charset==null){
-            charset = "UTF-8";
-        }
-        request.setCharacterEncoding(charset);*/
+
 
         //httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -82,7 +78,7 @@ public class LimitFilter implements javax.servlet.Filter {
     }
 
     public void init(javax.servlet.FilterConfig config) throws javax.servlet.ServletException {
-        //config=config;
+
     }
 
 }
