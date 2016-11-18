@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 
@@ -16,12 +17,15 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.math.BigInteger;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -47,6 +51,81 @@ public class utils {
         }
         return result;
     }
+
+    //base64字符串转byte[]
+    public static byte[] base642byte(String sourcestr){
+        byte[] result = null;
+        BASE64Decoder decode = new BASE64Decoder();
+        try
+        {
+            result = decode.decodeBuffer(sourcestr);
+        }catch (Exception e){
+
+        }
+        return  result;
+    }
+    //byte[]转base64字符串
+    public static  String byte2base64(byte[] sourcebyte){
+        String result = "";
+        BASE64Encoder encoder = new BASE64Encoder();
+        try
+        {
+            result = encoder.encode(sourcebyte);
+        }catch (Exception e){
+
+        }
+        return  result;
+    }
+
+    //文件转byte[]
+    public static byte[] file2byte(String filepath){
+        byte[] result = null;
+        try(FileChannel fc = new RandomAccessFile(filepath, "r").getChannel()) {
+            MappedByteBuffer byteBuffer = fc.map(FileChannel.MapMode.READ_ONLY, 0,
+                    fc.size()).load();
+            result = new byte[(int) fc.size()];
+            if (byteBuffer.remaining() > 0) {
+                byteBuffer.get(result, 0, byteBuffer.remaining());
+            }
+        } catch (Exception e) {
+
+        }
+        return result;
+    }
+
+    /**
+     * byte转换成file
+     * @param filepath
+     * @param filename
+     * @param sourcebyte
+     * @return
+     */
+    public static String byte2file(String filepath,String filename,byte[] sourcebyte) {
+        String result = null;
+
+        File file = null;
+        String filefullname = filepath + "\\" + filename;//获取文件全名
+
+        File dir = new File(filepath);
+        if (!dir.exists() && dir.isDirectory()) {//判断文件目录是否存在
+            dir.mkdirs();
+        }
+
+        file = new File(filefullname);
+
+        try (
+                FileOutputStream fos = new FileOutputStream(file);
+                BufferedOutputStream bos = new BufferedOutputStream(fos)
+        ) {
+            bos.write(sourcebyte);
+            result = filefullname;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = null;
+        }
+        return result;
+    }
+
 
     /**
      * jsonarry转list
@@ -167,7 +246,7 @@ public class utils {
             //将时间转成字符串
             /*SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date dtime = simpleDateFormat.parse(ddate);*/
-
+            //将数据库列名添加进list对象中
             cols.add("dtime");
             cols.add("customerip");
             cols.add("method");
@@ -177,6 +256,7 @@ public class utils {
             cols.add("errtype");
 
             //vals.add(String.format("timestamp '%s'",dtime));
+            //将取出的字段值添加进list对象中
             vals.add("to_char(sysdate,'yyyy-mm-dd hh24:mi:ss')");
             vals.add("'"+customerip+"'");
             vals.add("'"+method+"'");
@@ -184,16 +264,18 @@ public class utils {
             vals.add("'"+result+"'");
             vals.add("'"+error+"'");
             vals.add("'"+errtype+"'");
-            //获取配置文件中的insert语句并拼写
 
-            String sql=String.format(utils.getpropertieval("insert","/config/sqls.properties"),"logtable", StringUtils.join(cols,","),StringUtils.join(vals,","));
+            //获取配置文件中的insert语句并拼写
+            String sql=String.format(utils.getpropertieval("insert","/config/sqls.properties"),"logtable", join(cols,","),join(vals,","));
+
             //解密数据库账号
-           // String url=utils.decryptBasedDes(utils.getpropertieval("s_dbname","/config/dbconfig.properties"));
-          //  String username=utils.decryptBasedDes(utils.getpropertieval("s_dbuser","/config/dbconfig.properties"));
-           // String password=utils.decryptBasedDes(utils.getpropertieval("s_dbpassword","/config/dbconfig.properties"));
+            String user =utils.decryptBasedDes(utils.getpropertieval("s_dbuser","/config/dbconfig.properties"));
+            String password =utils.decryptBasedDes(utils.getpropertieval("s_dbpassword","/config/dbconfig.properties"));
+            String dbhost =utils.decryptBasedDes(utils.getpropertieval("s_dbname","/config/dbconfig.properties"));
+
             //执行
-            JSONObject jobject=dbhelpser.Excutesql("jdbc:oracle:thin:@localhost:1521:orcl", "puyunhe", "tiger", sql, null, null);
-            System.out.println(jobject.toString());
+            JSONObject jobject=dbhelpser.Excutesql(dbhost, user, password, sql, null, null);
+            //System.out.println(jobject.toString());
             if(jobject.get("data")!=null){
                 log=jobject.get("data").toString();
             }else {
@@ -222,6 +304,64 @@ public class utils {
             ip  =  request.getRemoteAddr();
         }
         return  ip;
+    }
+
+
+    /**
+     * 给字符与字符之间添加指定的东西
+     * @param sourcearray
+     * @param joinstr
+     * @return
+     */
+    public  static String join(List<String> sourcearray,String joinstr){
+        StringBuilder sb = new StringBuilder();
+        for (int i=0;i<sourcearray.size();i++){
+            sb.append(sourcearray.get(i));
+            if(i==sourcearray.size()-1){
+                break;
+            }
+            sb.append(joinstr);
+        }
+        return  sb.toString();
+    }
+
+    /**
+     * MD5加密
+     * @param str
+     * @return
+     */
+    public static String getMD5(String str) {
+        try {
+            // 生成一个MD5加密计算摘要
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            // 计算md5函数
+            md.update(str.getBytes());
+            // digest()最后确定返回md5 hash值，返回值为8为字符串。因为md5 hash值是16位的hex值，实际上就是8位的字符
+            // BigInteger函数则将8位的字符串转换成16位hex值，用字符串来表示；得到字符串形式的hash值
+
+            return new BigInteger(1, md.digest()).toString(16);
+        } catch (Exception e) {
+            throw new RuntimeException("MD5加密出现错误");
+        }
+    }
+
+    /**
+     *查看字符串中位数如果小于16位，从最前面第0位开始用0补足
+     * @param src
+     * @return
+     */
+    public static String fillSeats(String src){
+        //转换成StringBuffer，效率比StringBuilder更高
+        StringBuffer stringBuffer = new StringBuffer(src);
+        //转换成char数组
+        char[] chars = src.toCharArray();
+        while (chars.length<16){
+            //如果小于16位在第0位开始用0补足
+            stringBuffer.insert(0,0);
+            //赋值给char数组对象
+            chars = stringBuffer.toString().toCharArray();
+        }
+        return stringBuffer.toString();
     }
 }
 

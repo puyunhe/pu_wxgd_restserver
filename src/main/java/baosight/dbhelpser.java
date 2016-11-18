@@ -114,7 +114,7 @@ public class dbhelpser {
 			}
 		}
 
-		JSONObject logobj = new JSONObject();
+		/*JSONObject logobj = new JSONObject();
 		try {
 			logobj.accumulate("cusip","");
 			logobj.accumulate("method","db.Excutesql");
@@ -123,10 +123,10 @@ public class dbhelpser {
 			logobj.accumulate("error",result.has("error")?result.getString("error"):"");
 			logobj.accumulate("errtype","db.Excutesql");
 			//创建日志到数据库
-			utils.createLog(logobj.toString());
+			utils.createLog(logobj.toString());*//*
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
+		}*/
 		return result;
 	}
 	
